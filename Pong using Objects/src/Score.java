@@ -1,4 +1,4 @@
-
+//
 public class Score {
 	private int left;
 	private int right;

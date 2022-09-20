@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Frame extends JPanel implements KeyListener, ActionListener{
-	//save
 	boolean singleplayer = true;
 	boolean noplayer = false;
 	Color green = java.awt.Color.green;

@@ -6,9 +6,7 @@ import java.awt.Graphics;
  *    template used to create objects
  *    blueprint/recipe
  * 
- * 
  * How do you create objects from a class?
- * 
  * 
  * 
  * What are the parts of a class?

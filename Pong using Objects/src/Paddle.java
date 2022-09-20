@@ -2,7 +2,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Paddle {
-
+    //
 	// parts of a class - instance vars /properties
 	// attributes
 	private int x, y; //location
