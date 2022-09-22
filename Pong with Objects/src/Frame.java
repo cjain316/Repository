@@ -1,14 +1,9 @@
 import java.awt.Color;
-import java.awt.event.*;
-import javax.swing.*;
 import java.awt.event.KeyEvent;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -34,7 +29,6 @@ public class Frame extends JPanel implements KeyListener, ActionListener{
 	        g.drawString((score.getLeftScore() + " | " + score.getRightScore()), 385, 100);
 	        
 	        boolean winner = false;
-	        int speed = 1;
 	        
 	        if (score.getLeftScore() > 4) {
 	            winner = true;
@@ -64,36 +58,23 @@ public class Frame extends JPanel implements KeyListener, ActionListener{
 	                    rightPaddle.setY(225);
 	                }
 	            }
+	          
 	            
-	            if (singleplayer || noplayer) {
+	            if (singleplayer) {
 	                if (winner == false) {
-	                    if (newBall.getVx() > 0 && newBall.getX() > 400) {
+	                    if (newBall.getVx() > 0 && newBall.getX() > 350) {
 	                        if (newBall.getY() > rightPaddle.getY()) {
-	                            rightPaddle.setVelocity(7*speed);
+	                            rightPaddle.setVelocity(7);
 	                        }
 	                        if (newBall.getY() < rightPaddle.getY()) {
-	                            rightPaddle.setVelocity(-7*speed);
+	                            rightPaddle.setVelocity(-7);
 	                        }
 	                    } else {
 	                        rightPaddle.setVelocity(0);
 	                    }
 	                }
 	            }
-	            if (noplayer) {
-	                if (winner == false) {
-	                    if (newBall.getVx() < 0) {
-	                        if (newBall.getY() > leftPaddle.getY()) {
-	                            leftPaddle.setVelocity(7*speed);
-	                        }
-	                        if (newBall.getY() < leftPaddle.getY()) {
-	                            leftPaddle.setVelocity(-7*speed);
-	                        }
-	                    } else {
-	                        leftPaddle.setVelocity(0);
-	                    }
-	                }
-	            }
-	            
+
 	            if (newBall.getY()>505) {
 	                newBall.setVelocityY(-7);
 	            }
@@ -102,16 +83,29 @@ public class Frame extends JPanel implements KeyListener, ActionListener{
 	            }
 	            if (colliding(newBall,leftPaddle)) {
 	                newBall.setVelocityX(11);
+	                if (leftPaddle.getvY() > 0) {
+	                	newBall.setVelocityY(7);
+	                }
+	                if (leftPaddle.getvY() < 0) {
+	                	newBall.setVelocityY(-7);
+	                }
 	            }
 	            if (colliding(newBall,rightPaddle)) {
 	                newBall.setVelocityX(-11);
+	                if (rightPaddle.getvY() > 0) {
+	                	newBall.setVelocityY(7);
+	                }
+	                if (rightPaddle.getvY() < 0) {
+	                	newBall.setVelocityY(-7);
+	                }
 	            }
+	            
 	            
 	            leftPaddle.paint(g);
 	            rightPaddle.paint(g);
 	            newBall.paint(g);
 	        }
-        }
+	}
     
     
     public static void main(String[] arg) {
@@ -120,28 +114,24 @@ public class Frame extends JPanel implements KeyListener, ActionListener{
     
     @Override
     public void keyPressed(KeyEvent arg) {
-        if (noplayer == false) {
-            int speed = 1;
             if (arg.getExtendedKeyCode() == 87) {
-                    leftPaddle.setVelocity(-7*speed);
+                    leftPaddle.setVelocity(-7);
             }
             if (arg.getExtendedKeyCode() == 83) {
-                    leftPaddle.setVelocity(7*speed);
+                    leftPaddle.setVelocity(7);
             }
             if (singleplayer == false) {
                 if (arg.getExtendedKeyCode() == 38) {
-                        rightPaddle.setVelocity(-7*speed);
+                        rightPaddle.setVelocity(-7);
                 }
                 if (arg.getExtendedKeyCode() == 40) {
-                        rightPaddle.setVelocity(7*speed);
+                        rightPaddle.setVelocity(7);
                 }
             }
         }
-    }
 
     @Override
     public void keyReleased(KeyEvent arg) {
-        if (noplayer == false) {
             if (arg.getExtendedKeyCode() == 87) {
                 leftPaddle.setVelocity(0);
             }
@@ -157,9 +147,7 @@ public class Frame extends JPanel implements KeyListener, ActionListener{
                 }
             }
         }
-
-        
-    }
+    
 
     @Override
     public void keyTyped(KeyEvent arg0) {

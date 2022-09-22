@@ -31,6 +31,9 @@ public class Paddle {
     public int getY() {
         return y;
     }
+    public int getvY() {
+        return vy;
+    }
 
     public void setY(int y) {
         this.y = y;
