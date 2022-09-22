@@ -1,4 +1,6 @@
 import java.awt.Color;
+import java.awt.event.*;
+import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -10,6 +12,8 @@ import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+
+
 
 public class Frame extends JPanel implements KeyListener, ActionListener{
     boolean singleplayer = true;
@@ -26,88 +30,88 @@ public class Frame extends JPanel implements KeyListener, ActionListener{
         g.setColor(Color.black);
         g.fillRect(0, 0, 800, 600);
         
-        g.setColor(Color.white);
-        g.drawString((score.getLeftScore() + " | " + score.getRightScore()), 385, 100);
-        
-        boolean winner = false;
-        int speed = 1;
-        
-        if (score.getLeftScore() > 4) {
-            winner = true;
-            g.drawString("Left Player Wins!", 350, 150);
+	        g.setColor(Color.white);
+	        g.drawString((score.getLeftScore() + " | " + score.getRightScore()), 385, 100);
+	        
+	        boolean winner = false;
+	        int speed = 1;
+	        
+	        if (score.getLeftScore() > 4) {
+	            winner = true;
+	            g.drawString("Left Player Wins!", 350, 150);
+	        }
+	        if (score.getRightScore() > 4) {
+	            winner = true;
+	            g.drawString("Right Player Wins!", 350, 150);
+	        }
+	        
+	        if (winner == false) {
+	            if (newBall.getX()>800) {
+	                score.leftScores();
+	                newBall.setVelocityX(0);
+	                newBall.setX(676);
+	                newBall.setY(-25);
+	                if (singleplayer == true) {
+	                    rightPaddle.setY(225);
+	                }
+	            }
+	            if (newBall.getX()<-50) {
+	                score.rightScores();
+	                newBall.setVelocityX(0);
+	                newBall.setX(676);
+	                newBall.setY(-25);
+	                if (singleplayer == true) {
+	                    rightPaddle.setY(225);
+	                }
+	            }
+	            
+	            if (singleplayer || noplayer) {
+	                if (winner == false) {
+	                    if (newBall.getVx() > 0 && newBall.getX() > 400) {
+	                        if (newBall.getY() > rightPaddle.getY()) {
+	                            rightPaddle.setVelocity(7*speed);
+	                        }
+	                        if (newBall.getY() < rightPaddle.getY()) {
+	                            rightPaddle.setVelocity(-7*speed);
+	                        }
+	                    } else {
+	                        rightPaddle.setVelocity(0);
+	                    }
+	                }
+	            }
+	            if (noplayer) {
+	                if (winner == false) {
+	                    if (newBall.getVx() < 0) {
+	                        if (newBall.getY() > leftPaddle.getY()) {
+	                            leftPaddle.setVelocity(7*speed);
+	                        }
+	                        if (newBall.getY() < leftPaddle.getY()) {
+	                            leftPaddle.setVelocity(-7*speed);
+	                        }
+	                    } else {
+	                        leftPaddle.setVelocity(0);
+	                    }
+	                }
+	            }
+	            
+	            if (newBall.getY()>505) {
+	                newBall.setVelocityY(-7);
+	            }
+	            if (newBall.getY()<0) {
+	                newBall.setVelocityY(7);
+	            }
+	            if (colliding(newBall,leftPaddle)) {
+	                newBall.setVelocityX(11);
+	            }
+	            if (colliding(newBall,rightPaddle)) {
+	                newBall.setVelocityX(-11);
+	            }
+	            
+	            leftPaddle.paint(g);
+	            rightPaddle.paint(g);
+	            newBall.paint(g);
+	        }
         }
-        if (score.getRightScore() > 4) {
-            winner = true;
-            g.drawString("Right Player Wins!", 350, 150);
-        }
-        
-        if (winner == false) {
-            if (newBall.getX()>800) {
-                score.leftScores();
-                newBall.setVelocityX(0);
-                newBall.setX(676);
-                newBall.setY(-25);
-                if (singleplayer == true) {
-                    rightPaddle.setY(225);
-                }
-            }
-            if (newBall.getX()<-50) {
-                score.rightScores();
-                newBall.setVelocityX(0);
-                newBall.setX(676);
-                newBall.setY(-25);
-                if (singleplayer == true) {
-                    rightPaddle.setY(225);
-                }
-            }
-            
-            if (singleplayer || noplayer) {
-                if (winner == false) {
-                    if (newBall.getVx() > 0) {
-                        if (newBall.getY() > rightPaddle.getY()) {
-                            rightPaddle.setVelocity(7*speed);
-                        }
-                        if (newBall.getY() < rightPaddle.getY()) {
-                            rightPaddle.setVelocity(-7*speed);
-                        }
-                    } else {
-                        rightPaddle.setVelocity(0);
-                    }
-                }
-            }
-            if (noplayer) {
-                if (winner == false) {
-                    if (newBall.getVx() < 0) {
-                        if (newBall.getY() > leftPaddle.getY()) {
-                            leftPaddle.setVelocity(7*speed);
-                        }
-                        if (newBall.getY() < leftPaddle.getY()) {
-                            leftPaddle.setVelocity(-7*speed);
-                        }
-                    } else {
-                        leftPaddle.setVelocity(0);
-                    }
-                }
-            }
-            
-            if (newBall.getY()>505) {
-                newBall.setVelocityY(-7);
-            }
-            if (newBall.getY()<0) {
-                newBall.setVelocityY(7);
-            }
-            if (colliding(newBall,leftPaddle)) {
-                newBall.setVelocityX(11);
-            }
-            if (colliding(newBall,rightPaddle)) {
-                newBall.setVelocityX(-11);
-            }
-            
-            leftPaddle.paint(g);
-            rightPaddle.paint(g);
-            newBall.paint(g);
-        }
-    }
     
     
     public static void main(String[] arg) {
@@ -217,9 +221,11 @@ public class Frame extends JPanel implements KeyListener, ActionListener{
         f.add(this);
         f.addKeyListener(this);
         
-        t = new Timer(1, this);
+        t = new Timer(7, this);
         t.start();
         f.setVisible(true);
+       
         
     }
+    
 }
