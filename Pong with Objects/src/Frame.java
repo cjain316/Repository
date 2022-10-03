@@ -11,14 +11,14 @@ import javax.swing.Timer;
 
 
 public class Frame extends JPanel implements KeyListener, ActionListener{
-    boolean singleplayer = true;
+    boolean singleplayer = false;
     boolean noplayer = false;
     Color green = java.awt.Color.green;
     Paddle leftPaddle = new Paddle(50,225);
     Paddle rightPaddle = new Paddle(700,225);
     Ball newBall = new Ball(676,-25,30);
     Score score = new Score(0,0);
-    /* paint is getting called roughly 144x per second */
+
     public void paint(Graphics g) {
         super.paintComponent(g);
         

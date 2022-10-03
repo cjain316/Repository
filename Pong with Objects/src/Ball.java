@@ -1,27 +1,9 @@
 import java.awt.Color;
 import java.awt.Graphics;
 
-/*
- * What is a class in java?
- *    template used to create objects
- *    blueprint/recipe
- * 
- * 
- * How do you create objects from a class?
- * 
- * 
- * 
- * What are the parts of a class?
- * 
- * 
- * What are attributes/properties/instance variables?
- * 
- */
-public class Ball { //class Header
-    
-    // #1 - part of a class
-    // instance variables / properties
-    private int x;     //location
+public class Ball {
+    //balls
+    private int x;     
     private int y;
     
     public int getX() {
@@ -72,17 +54,15 @@ public class Ball { //class Header
         return color;
     }
 
-    private int width; //size variable
-    private Color color; //color
-    private int vx, vy; //velocity variables
+    private int width;
+    private Color color;
+    private int vx, vy;
     
-    // # - parts of a class - constructor
-    // helps with creation of class
-    // assigns values to the instance variable
-    public Ball() { //the default constructor is the one w/o parameters
+
+    public Ball() {
         
-        x = (int)(Math.random()*(600-100+1))+100; // [100 600] randomize it
-        y = (int)(Math.random()*(400-100+1))+100;//randomize it between [100 400]
+        x = (int)(Math.random()*(600-100+1))+100;
+        y = (int)(Math.random()*(400-100+1))+100;
         
         width = 3;
         
@@ -97,7 +77,7 @@ public class Ball { //class Header
         x = newX;
         y = newY;
         width = newWidth;
-        //also randomize the colors
+
         int red = 255;
         int green = 255;
         int blue = 255;
@@ -115,17 +95,17 @@ public class Ball { //class Header
         this.vy = vy;
     }
     
-    //add a method to the ball that allows it to paint itself
+
     public void paint(Graphics g) {
         
-        //update velocity
+
         x += vx;
         y += vy;
         
-        //set the color
+
         g.setColor(color);
         
-        //draw the object
+
         g.fillRect(x, y, width, width);
         
     }
